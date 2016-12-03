@@ -1,14 +1,14 @@
 !!! 5
 - ie_html :lang => 'en', :class => 'no-js' do
   %head
-    = partial "document_head"
+    = partial "partials/document_head"
 
   %body{:class => current_page.data.body_class || 'page'}
     #container
-      = partial 'header'
+      = partial 'partials/header'
 
       #main(role="main")
         = yield
 
-      = partial 'footer'
-      = partial 'scripts'
+      = partial 'partials/footer'
+      = partial 'partials/scripts'
