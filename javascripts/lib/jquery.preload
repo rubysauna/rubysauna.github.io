@@ -1,0 +1,35 @@
+(function() {
+  var $;
+
+  $ = jQuery;
+
+  $.fn.preload = function(onSuccess, onError, allComplete) {
+    var $set, finalize, total;
+    $set = this;
+    total = $set.length;
+    finalize = function() {
+      if (--total === 0 && (allComplete != null)) {
+        return allComplete.apply($set);
+      }
+    };
+    return $set.each(function() {
+      var $img;
+      $img = $(this);
+      return $('<img/>', {
+        src: this.src,
+        load: function() {
+          if (onSuccess != null) {
+            return onSuccess.apply($img);
+          }
+        },
+        error: function() {
+          if (onError != null) {
+            return onError.apply($img);
+          }
+        },
+        complete: finalize
+      });
+    });
+  };
+
+}).call(this);
